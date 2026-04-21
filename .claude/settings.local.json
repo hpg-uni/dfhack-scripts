@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(powershell.exe -Command \"Get-ChildItem -Path 'C:\\\\','D:\\\\','E:\\\\','F:\\\\' -Recurse -Filter 'dfhack.exe' -ErrorAction SilentlyContinue | Select-Object -First 5 FullName\")"
-    ]
-  }
-}

@@ -1,4 +1,25 @@
+# Windows
 *.bak
 *.tmp
 Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+
+# Lua
+*.luac
+luac.out
+
+# Editors
+.vscode/
+.idea/
+*.sublime-*
+
+# Claude Code
 .claude/
+
+# Logs
+*.log

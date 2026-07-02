@@ -8,16 +8,14 @@ zu klicken, holt dieses Skript die Termine direkt vom AWIDO-Backend
 Abfall-App" steckt.
 
 Standardmäßig:
-  * Straße  = Pfleghofstraße
-  * Ort     = Tübingen
-  * Es werden nur kommende Termine angezeigt (vergangene werden ausgeblendet).
+  * Straße  = Pfleghofstraße, Ort = Tübingen
+  * Ausgabe = nur der nächste Biomüll-Termin (eine Zeile).
 
 Beispiele:
-  ./abfuhrtermine.py                      # nächste Termine Pfleghofstraße
-  ./abfuhrtermine.py --tage 30            # nur die nächsten 30 Tage
+  ./abfuhrtermine.py                      # nächster Biomüll-Termin
+  ./abfuhrtermine.py --art Restmüll       # nächster Restmüll-Termin
+  ./abfuhrtermine.py --liste              # alle Tonnen, alle kommenden Termine
   ./abfuhrtermine.py --strasse "Wilhelmstraße"
-  ./abfuhrtermine.py --ort Dettenhausen   # Orte ohne Straßenauswahl
-  ./abfuhrtermine.py --ics tuebingen.ics  # Kalenderdatei zum Abonnieren erzeugen
   ./abfuhrtermine.py --orte               # alle wählbaren Orte auflisten
   ./abfuhrtermine.py --strassen           # alle Straßen des Orts auflisten
 
@@ -38,6 +36,8 @@ BASE = "https://awido.cubefour.de"
 SVC = BASE + "/WebServices/Awido.Service.svc/secure"
 
 WOCHENTAGE = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
+WOCHENTAGE_LANG = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag",
+                   "Samstag", "Sonntag"]
 MONATE = ["", "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli",
           "August", "September", "Oktober", "November", "Dezember"]
 
@@ -45,6 +45,7 @@ MONATE = ["", "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli",
 DEFAULT_CUSTOMER = "tuebingen"
 DEFAULT_ORT = "Tübingen"
 DEFAULT_STRASSE = "Pfleghofstraße"
+DEFAULT_ART = "Bio"  # nur der nächste Biomüll-Termin interessiert normalerweise
 
 
 def _get(url: str, params: dict | None = None) -> bytes:
@@ -163,6 +164,32 @@ def filter_window(
     return res
 
 
+def naechster_termin(collections, art: str):
+    """Erster kommender Termin, dessen Abfallart 'art' enthält (z.B. 'Bio')."""
+    art = art.strip().lower()
+    for date, a in collections:  # collections ist bereits chronologisch
+        if art in a.lower():
+            return date, a
+    return None
+
+
+def print_naechster(treffer, art: str, heute: dt.date) -> None:
+    if treffer is None:
+        print(f"Kein kommender Termin für '{art}' gefunden.")
+        print("(Tipp: --liste zeigt alle Tonnen, --art Restmüll wählt eine andere.)")
+        return
+    date, a = treffer
+    delta = (date - heute).days
+    if delta == 0:
+        rel = "HEUTE"
+    elif delta == 1:
+        rel = "MORGEN"
+    else:
+        rel = f"in {delta} Tagen"
+    print(f"Nächster {a}:")
+    print(f"  {WOCHENTAGE_LANG[date.weekday()]}, {date.strftime('%d.%m.%Y')}  ({rel})")
+
+
 def fmt_date(d: dt.date, heute: dt.date) -> str:
     delta = (d - heute).days
     if delta == 0:
@@ -249,8 +276,12 @@ def main(argv: list[str]) -> int:
         help=f"Straße (Standard: {DEFAULT_STRASSE})",
     )
     p.add_argument("--kunde", default=DEFAULT_CUSTOMER, help=argparse.SUPPRESS)
+    p.add_argument("--art", default=DEFAULT_ART,
+                   help=f"Abfallart für den nächsten Termin (Standard: {DEFAULT_ART}).")
+    p.add_argument("--liste", action="store_true",
+                   help="Alle Tonnen und alle kommenden Termine anzeigen.")
     p.add_argument("--tage", type=int, default=None,
-                   help="Nur die nächsten N Tage anzeigen.")
+                   help="Nur die nächsten N Tage anzeigen (mit --liste).")
     p.add_argument("--alle", action="store_true",
                    help="Auch vergangene Termine einbeziehen.")
     p.add_argument("--ics", metavar="DATEI",
@@ -304,7 +335,12 @@ def main(argv: list[str]) -> int:
         write_ics(collections, args.ics, args.ort, strasse)
         return 0
 
-    print_schedule(collections, heute, args.ort, strasse)
+    if args.liste:
+        print_schedule(collections, heute, args.ort, strasse)
+        return 0
+
+    # Standard: nur der nächste Termin der gewünschten Art (z.B. Biomüll).
+    print_naechster(naechster_termin(collections, args.art), args.art, heute)
     return 0
 
 

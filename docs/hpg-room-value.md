@@ -1,10 +1,10 @@
-# room-value
+# hpg-room-value
 
 Shows the total calculated value of a zone, broken down into floors, walls, and furniture.
 
 ## Usage
 
-    heinrich/room-value
+    hpg-room-value
 
 ## Requirements
 

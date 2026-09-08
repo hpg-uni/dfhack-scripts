@@ -10,25 +10,29 @@ Personal DFHack Lua scripts by [hpg-uni](https://github.com/hpg-uni).
 ## Installation
 
 1. Clone this repository somewhere on your system.
-2. Create a symlink from your DFHack `scripts` folder into this repo's `scripts/` directory.
+2. Register the repo's `scripts/` folder as a DFHack script path: open
+   `dfhack-config/script-paths.txt` in your Dwarf Fortress folder and add a line
 
-**Windows (Command Prompt as Administrator):**
-```cmd
-mklink /D "PATH_TO_DFHACK\hack\scripts\heinrich" "PATH_TO_THIS_REPO\scripts"
-```
-Replace `PATH_TO_DFHACK` with your actual DFHack path, e.g.:
-`C:\Program Files (x86)\Steam\steamapps\common\Dwarf Fortress`
+   ```
+   +F:\DF-Hack\scripts
+   ```
 
-**Linux/macOS:**
-```bash
-ln -s /path/to/this/repo/scripts "/path/to/dfhack/hack/scripts/heinrich"
-```
+   (adjust the path; the leading `+` puts it first in the search order).
+3. Restart DF (or run `script-paths` in the DFHack console to check). The scripts
+   then appear in `gui/launcher` and are available as `hpg-<scriptname>`.
 
-3. Scripts are then available in the DFHack console as `heinrich/<scriptname>`.
+All scripts carry the prefix `hpg-` so they never collide with scripts shipped by
+DFHack.
+
+Do not use a symlink inside `hack/scripts/`: DFHack's recursive script scan skips
+symlinked folders, so the scripts would run but not show up in the launcher.
 
 ## Scripts
 
-Scripts will be listed here as they are added.
+| Script | Description |
+|---|---|
+| [hpg-room-value](docs/hpg-room-value.md) | Value breakdown (floors, walls, furniture) of the selected zone |
+| [hpg-noble-needs](docs/hpg-noble-needs.md) | Which nobles have unmet room or furniture requirements |
 
 ## License
 

@@ -1,7 +1,24 @@
--- room-value: Shows the total value of the currently selected zone.
--- Counts constructed/smooth/engraved floors and walls, plus furniture.
--- Items placed on display furniture are not included (DF does not count them).
--- Usage: heinrich/room-value
+-- Shows the value breakdown of the selected zone.
+--[====[
+hpg-room-value
+==============
+
+Tags: fort | inspection | buildings
+
+Prints the value of the currently selected zone, broken down into floors,
+walls and furniture, with a per-item furniture list.
+
+Counts constructed, smoothed and engraved floors and walls plus furniture.
+Items placed on display furniture are not included (DF does not count
+them either).
+
+Usage
+-----
+
+    hpg-room-value
+
+Open the Zones screen (z), click a zone, then run the command.
+]====]
 
 local QUALITY_MULT = { [0]=1, [1]=2, [2]=3, [3]=4, [4]=5, [5]=12 }
 local QUALITY_NAME = {
@@ -20,8 +37,8 @@ for _, def in ipairs({
     {"Box",          "Box/Chest"},
     {"Coffin",       "Coffin"},
     {"Statue",       "Statue"},
-    {"ArmorStand",   "Armor Stand"},
-    {"WeaponRack",   "Weapon Rack"},
+    {"Armorstand",   "Armor Stand"},
+    {"Weaponrack",   "Weapon Rack"},
     {"Door",         "Door"},
     {"Window",       "Window"},
     {"GrateWall",    "Wall Grate"},

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eigene Stockpile-Settings — was steckt drin</title>
+<style>
+  :root{ --bg:#1b1c1f; --card:#26282c; --card2:#2e3035; --ink:#e6e6e6; --mut:#9aa0a6;
+         --accent:#7cc4ff; --hi:#ffe082; --line:#3a3d42; }
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.45 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+  header{position:sticky;top:0;z-index:10;background:var(--bg);
+         border-bottom:1px solid var(--line);padding:14px 20px}
+  h1{margin:0 0 8px;font-size:19px}
+  .sub{color:var(--mut);font-size:13px;margin-bottom:10px}
+  #q{width:100%;padding:11px 14px;font-size:16px;border:1px solid var(--line);
+     border-radius:8px;background:var(--card2);color:var(--ink)}
+  #q:focus{outline:2px solid var(--accent);border-color:var(--accent)}
+  .meta{color:var(--mut);font-size:13px;margin-top:8px;display:flex;gap:16px;flex-wrap:wrap}
+  .meta a{color:var(--accent);cursor:pointer;text-decoration:none}
+  main{padding:16px 20px;max-width:1100px;margin:0 auto}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:0 0 12px;overflow:hidden}
+  .chead{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;user-select:none}
+  .chead:hover{background:var(--card2)}
+  .fname{font-weight:600;font-size:15px;word-break:break-word}
+  .badge{margin-left:auto;background:var(--card2);color:var(--mut);border:1px solid var(--line);
+          border-radius:20px;padding:2px 10px;font-size:12px;white-space:nowrap}
+  .arrow{color:var(--mut);transition:transform .12s;font-size:12px}
+  .card.open .arrow{transform:rotate(90deg)}
+  .cbody{display:none;border-top:1px solid var(--line);padding:10px 14px 12px}
+  .card.open .cbody{display:block}
+  .summ{color:var(--hi);font-size:13px;margin:0 0 10px}
+  .catname{font-weight:600;font-size:13.5px;margin:10px 0 4px;color:var(--accent)}
+  .fieldrow{margin:2px 0 6px}
+  .fieldlbl{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.03em;margin-right:6px}
+  .pill{display:inline-block;background:var(--card2);border:1px solid var(--line);border-radius:5px;
+        padding:1px 7px;margin:1px 3px 1px 0;font-size:12px}
+  .flag{color:var(--hi);font-weight:600;font-size:12.5px;margin-right:10px}
+  .empty{color:var(--mut);font-style:italic;font-size:13px}
+  .nores{color:var(--mut);padding:30px;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1>Eigene Stockpile-Settings — was steckt drin</h1>
+  <div class="sub">Quelle: dfhack-config\stockpiles\ (eigene, Export aus dem Spiel) &middot; 6 Dateien &middot; Import im Spiel: Stockpile anklicken &rarr; DFHack-Import-Overlay, oder Befehl <b>stockpiles import library/&lt;name&gt;</b> &middot; sucht im <b>Dateinamen UND im Inhalt</b> (Teilstring)</div>
+  <input id="q" type="search" placeholder="Suche, z.B. iron, hematite, seeds, quality, masterwork, bone ..." autofocus>
+  <div class="meta">
+    <span id="stat"></span>
+    <a id="expandAll">Alle ausklappen</a>
+    <a id="collapseAll">Alle einklappen</a>
+  </div>
+</header>
+<main id="list"></main>
+
+<script>
+const DATA = [{"name": "666", "bytes": 3111, "summary": "Furniture: 165 Eintraege | Sheets: Kategorie an, nichts angehakt | Allgemein: max_barrels=0, max_bins=388, max_wheelbarrows=0, use_links_only=True, allow_organic=True, allow_inorganic=True", "general": {"max_barrels": 0, "max_bins": 388, "max_wheelbarrows": 0, "use_links_only": true, "allow_organic": true, "allow_inorganic": true}, "cats": {"Furniture": {"type": ["CATAPULTPARTS", "BALLISTAPARTS", "SIEGEAMMO", "BALLISTAARROWHEAD", "OTHER_LARGE_TOOLS", "BOLT_THROWER_PARTS"], "other_mats": ["WOOD", "PLANT_CLOTH", "BONE", "TOOTH", "HORN", "PEARL", "SHELL", "LEATHER", "SILK", "AMBER", "CORAL", "GREEN_GLASS", "CLEAR_GLASS", "CRYSTAL_GLASS", "YARN"], "mats": ["INORGANIC:IRON", "INORGANIC:GOLD", "INORGANIC:SILVER", "INORGANIC:COPPER", "INORGANIC:NICKEL", "INORGANIC:ZINC", "INORGANIC:BRONZE", "INORGANIC:BRASS", "INORGANIC:STEEL", "INORGANIC:PIG_IRON", "INORGANIC:PLATINUM", "INORGANIC:ELECTRUM", "INORGANIC:TIN", "INORGANIC:PEWTER_FINE", "INORGANIC:PEWTER_TRIFLE", "INORGANIC:PEWTER_LAY", "INORGANIC:LEAD", "INORGANIC:ALUMINUM", "INORGANIC:NICKEL_SILVER", "INORGANIC:BILLON", "INORGANIC:STERLING_SILVER", "INORGANIC:BLACK_BRONZE", "INORGANIC:ROSE_GOLD", "INORGANIC:BISMUTH", "INORGANIC:BISMUTH_BRONZE", "INORGANIC:ADAMANTINE", "INORGANIC:PLASTER", "INORGANIC:CERAMIC_EARTHENWARE", "INORGANIC:CERAMIC_STONEWARE", "INORGANIC:CERAMIC_PORCELAIN", "INORGANIC:ASH_GLAZE", "INORGANIC:TIN_GLAZE", "INORGANIC:SANDSTONE", "INORGANIC:SILTSTONE", "INORGANIC:MUDSTONE", "INORGANIC:SHALE", "INORGANIC:CLAYSTONE", "INORGANIC:ROCK_SALT", "INORGANIC:LIMESTONE", "INORGANIC:CONGLOMERATE", "INORGANIC:DOLOMITE", "INORGANIC:CHERT", "INORGANIC:CHALK", "INORGANIC:GRANITE", "INORGANIC:DIORITE", "INORGANIC:GABBRO", "INORGANIC:RHYOLITE", "INORGANIC:BASALT", "INORGANIC:ANDESITE", "INORGANIC:DACITE", "INORGANIC:OBSIDIAN", "INORGANIC:QUARTZITE", "INORGANIC:SLATE", "INORGANIC:PHYLLITE", "INORGANIC:SCHIST", "INORGANIC:GNEISS", "INORGANIC:MARBLE", "INORGANIC:HEMATITE", "INORGANIC:LIMONITE", "INORGANIC:GARNIERITE", "INORGANIC:NATIVE_GOLD", "INORGANIC:NATIVE_SILVER", "INORGANIC:NATIVE_COPPER", "INORGANIC:MALACHITE", "INORGANIC:GALENA", "INORGANIC:SPHALERITE", "INORGANIC:CASSITERITE", "INORGANIC:COAL_BITUMINOUS", "INORGANIC:LIGNITE", "INORGANIC:NATIVE_PLATINUM", "INORGANIC:CINNABAR", "INORGANIC:COBALTITE", "INORGANIC:TETRAHEDRITE", "INORGANIC:HORN_SILVER", "INORGANIC:GYPSUM", "INORGANIC:TALC", "INORGANIC:JET", "INORGANIC:PUDDINGSTONE", "INORGANIC:PETRIFIED_WOOD", "INORGANIC:GRAPHITE", "INORGANIC:BRIMSTONE", "INORGANIC:KIMBERLITE", "INORGANIC:BISMUTHINITE", "INORGANIC:REALGAR", "INORGANIC:ORPIMENT", "INORGANIC:STIBNITE", "INORGANIC:MARCASITE", "INORGANIC:SYLVITE", "INORGANIC:CRYOLITE", "INORGANIC:PERICLASE", "INORGANIC:ILMENITE", "INORGANIC:RUTILE", "INORGANIC:MAGNETITE", "INORGANIC:CHROMITE", "INORGANIC:PYROLUSITE", "INORGANIC:PITCHBLENDE", "INORGANIC:BAUXITE", "INORGANIC:NATIVE_ALUMINUM", "INORGANIC:BORAX", "INORGANIC:OLIVINE", "INORGANIC:HORNBLENDE", "INORGANIC:KAOLINITE", "INORGANIC:SERPENTINE", "INORGANIC:ORTHOCLASE", "INORGANIC:MICROCLINE", "INORGANIC:MICA", "INORGANIC:CALCITE", "INORGANIC:SALTPETER", "INORGANIC:ALABASTER", "INORGANIC:SELENITE", "INORGANIC:SATINSPAR", "INORGANIC:ANHYDRITE", "INORGANIC:ALUNITE", "INORGANIC:RAW_ADAMANTINE", "INORGANIC:SLADE", "INORGANIC:CERAMIC_BONE", "INORGANIC:BONE_CLAY", "INORGANIC:MARBLITE", "INORGANIC:CALCIONITE", "INORGANIC:DIVINE_1", "INORGANIC:DIVINE_3", "INORGANIC:DIVINE_5", "INORGANIC:DIVINE_7", "INORGANIC:DIVINE_9", "INORGANIC:DIVINE_11", "INORGANIC:DIVINE_13", "INORGANIC:DIVINE_15", "INORGANIC:DIVINE_17", "INORGANIC:DIVINE_19", "INORGANIC:MYTHICAL_REMNANT_1"], "quality_core": ["Ordinary", "WellCrafted", "FinelyCrafted", "Superior", "Exceptional", "Masterful", "Artifact"], "quality_total": ["Ordinary", "WellCrafted", "FinelyCrafted", "Superior", "Exceptional", "Masterful", "Artifact"]}, "Sheets": {}}}, {"name": "butcher", "bytes": 9982, "summary": "Animals: 658 Eintraege | Allgemein: max_barrels=0, max_bins=0, max_wheelbarrows=0, use_links_only=False, allow_organic=True, allow_inorganic=True", "general": {"max_barrels": 0, "max_bins": 0, "max_wheelbarrows": 0, "use_links_only": false, "allow_organic": true, "allow_inorganic": true}, "cats": {"Animals": {"empty_cages": false, "empty_traps": false, "enabled": ["TOAD", "GIANT_TOAD", "WORM", "BIRD_BLUEJAY", "GIANT_BLUEJAY", "BIRD_CARDINAL", "GIANT_CARDINAL", "BIRD_GRACKLE", "GIANT_GRACKLE", "BIRD_ORIOLE", "GIANT_ORIOLE", "BIRD_RW_BLACKBIRD", "GIANT_RW_BLACKBIRD", "BIRD_PENGUIN", "BIRD_PENGUIN_LITTLE", "BIRD_PENGUIN_EMPEROR", "BIRD_PENGUIN_GIANT", "BIRD_FALCON_PEREGRINE", "GIANT PEREGRINE FALCON", "BIRD_KIWI", "BIRD_KIWI_GIANT", "BIRD_OSTRICH", "BIRD_OSTRICH_GIANT", "BIRD_CROW", "GIANT_CROW", "BIRD_RAVEN", "GIANT_RAVEN", "BIRD_CASSOWARY", "GIANT_CASSOWARY", "BIRD_KEA", "GIANT_KEA", "BIRD_OWL_SNOWY", "GIANT_SNOWY_OWL", "SPARROW", "GIANT_SPARROW", "BIRD_STORK_WHITE", "GIANT_WHITE_STORK", "BIRD_LOON", "GIANT_LOON", "BIRD_OWL_BARN", "GIANT_BARN_OWL", "BIRD_PARAKEET", "GIANT_PARAKEET", "BIRD_KAKAPO", "GIANT_KAKAPO", "BIRD_PARROT_GREY", "GIANT_GREY_PARROT", "BIRD_PUFFIN", "GIANT_PUFFIN", "BIRD_SWAN", "GIANT_SWAN", "BIRD_LORIKEET", "GIANT_LORIKEET", "BIRD_WREN", "GIANT_WREN", "BIRD_OSPREY", "GIANT_OSPREY", "BIRD_EMU", "GIANT_EMU", "BIRD_COCKATIEL", "GIANT_COCKATIEL", "BIRD_LOVEBIRD_PEACH-FACED", "GIANT_PEACH-FACED_LOVEBIRD", "BIRD_MAGPIE", "GIANT_MAGPIE", "BIRD_KESTREL", "GIANT_KESTREL", "BIRD_ALBATROSS", "GIANT_ALBATROSS", "BIRD_OWL_GREAT_HORNED", "GIANT_GREAT_HORNED_OWL", "BIRD_EAGLE", "GIANT_EAGLE", "BIRD_HORNBILL", "GIANT_HORNBILL", "BIRD_LOVEBIRD_MASKED", "GIANT_MASKED_LOVEBIRD", "BIRD_BUSHTIT", "GIANT_BUSHTIT", "DAMSELFLY", "GIANT_DAMSELFLY", "MOTH", "GIANT_MOTH", "GRASSHOPPER", "GIANT_GRASSHOPPER", "BARK_SCORPION", "GIANT_BARK_SCORPION", "MANTIS", "GIANT_MANTIS", "TICK", "GIANT_TICK", "LOUSE", "GIANT_LOUSE", "THRIPS", "GIANT_THRIPS", "SLUG", "GIANT_SLUG", "MOSQUITO", "GIANT_MOSQUITO", "SPIDER_JUMPING", "GIANT_JUMPING_SPIDER", "TERMITE", "MOON_SNAIL", "GIANT_MOON_SNAIL", "SPIDER_BROWN_RECLUSE", "GIANT_BROWN_RECLUSE_SPIDER", "SNAIL", "GIANT_SNAIL", "GECKO_LEOPARD", "GIANT_LEOPARD_GECKO", "DESERT TORTOISE", "GIANT_DESERT_TORTOISE", "GILA_MONSTER", "GIANT_GILA_MONSTER", "DOG", "CAT", "MULE", "DONKEY", "HORSE", "COW", "SHEEP", "PIG", "GOAT", "BIRD_CHICKEN", "CAVY", "BIRD_DUCK", "WATER_BUFFALO", "REINDEER", "BIRD_GOOSE", "YAK", "LLAMA", "ALPACA", "BIRD_GUINEAFOWL", "BIRD_PEAFOWL_BLUE", "BIRD_TURKEY", "RABBIT", "CHIMERA", "CENTAUR", "GRIFFON", "FLY", "GIANT_FLY", "ROACH_LARGE", "GIANT_ROACH", "BEETLE", "GIANT_BEETLE", "ANT", "BUTTERFLY_MONARCH", "GIANT_BUTTERFLY_MONARCH", "FIREFLY", "GIANT_FIREFLY", "DRAGONFLY", "GIANT_DRAGONFLY", "HONEY_BEE", "BUMBLEBEE", "GOAT_MOUNTAIN", "GIANT_GOAT_MOUNTAIN", "MARMOT_HOARY", "GIANT_MARMOT_HOARY", "GNOME_MOUNTAIN", "GNOME_DARK", "WALRUS", "GIANT_WALRUS", "FISH_LAMPREY_SEA", "SHARK_GREAT_WHITE", "SHARK_FRILL", "SHARK_SPINY_DOGFISH", "SHARK_WOBBEGONG_SPOTTED", "SHARK_WHALE", "SHARK_BASKING", "SHARK_NURSE", "SHARK_MAKO_SHORTFIN", "SHARK_MAKO_LONGFIN", "SHARK_TIGER", "SHARK_BULL", "SHARK_REEF_BLACKTIP", "SHARK_REEF_WHITETIP", "SHARK_BLUE", "SHARK_HAMMERHEAD", "SHARK_ANGEL", "FISH_SKATE_COMMON", "FISH_RAY_MANTA", "FISH_STINGRAY", "FISH_COELACANTH", "FISH_STURGEON", "FISH_CONGER_EEL", "FISH_MILKFISH", "FISH_COD", "FISH_OPAH", "FISH_GROUPER_GIANT", "FISH_BLUEFISH", "FISH_SUNFISH_OCEAN", "FISH_SWORDFISH", "FISH_MARLIN", "FISH_HALIBUT", "FISH_BARRACUDA_GREAT", "FISH_TUNA_BLUEFIN", "NARWHAL", "NARWHAL, GIANT", "HIPPO", "GIANT_HIPPO", "FISH_GAR_LONGNOSE", "FISH_CARP", "FISH_TIGERFISH", "FISH_PIKE", "PLATYPUS", "PLATYPUS, GIANT", "BEAR_GRIZZLY", "GIANT_BEAR_GRIZZLY", "BEAR_BLACK", "GIANT_BEAR_BLACK", "DEER", "GIANT_DEER", "FOX", "GIANT_FOX", "RACCOON", "GIANT_RACCOON", "MACAQUE_RHESUS", "GIANT_MACAQUE_RHESUS", "COUGAR", "GIANT_COUGAR", "WOLF", "GIANT_WOLF", "GROUNDHOG", "GIANT_GROUNDHOG", "ALLIGATOR", "GIANT_ALLIGATOR", "BIRD_BUZZARD", "GIANT_BUZZARD", "PANDA", "PANDA, GIGANTIC", "CAPYBARA", "CAPYBARA, GIANT", "BADGER", "BADGER, GIANT", "MOOSE", "MOOSE, GIANT", "RED PANDA", "RED PANDA, GIANT", "ELEPHANT", "GIANT_ELEPHANT", "WARTHOG", "GIANT_WARTHOG", "LION", "GIANT_LION", "LEOPARD", "GIANT_LEOPARD", "JAGUAR", "GIANT_JAGUAR", "TIGER", "GIANT_TIGER", "CHEETAH", "GIANT_CHEETAH", "GAZELLE", "GIANT_GAZELLE", "MANDRILL", "GIANT_MANDRILL", "CHIMPANZEE", "BONOBO", "GORILLA", "ORANGUTAN", "GIBBON_SIAMANG", "GIBBON_WHITE_HANDED", "GIBBON_BLACK_HANDED", "GIBBON_GRAY", "GIBBON_SILVERY", "GIBBON_PILEATED", "GIBBON_BILOU", "GIBBON_WHITE_BROWED", "GIBBON_BLACK_CRESTED", "CAMEL_1_HUMP", "GIANT_CAMEL_1_HUMP", "CAMEL_2_HUMP", "GIANT_CAMEL_2_HUMP", "CROCODILE_SALTWATER", "GIANT_CROCODILE_SALTWATER", "BIRD_VULTURE", "GIANT_VULTURE", "RHINOCEROS", "GIANT_RHINOCEROS", "GIRAFFE", "GIANT_GIRAFFE", "HONEY BADGER", "HONEY BADGER, GIANT", "GIANT TORTOISE", "GIGANTIC TORTOISE", "ARMADILLO", "ARMADILLO, GIANT", "MUSKOX", "GIANT_MUSKOX", "ELK", "GIANT_ELK", "BEAR_POLAR", "GIANT_BEAR_POLAR", "WOLVERINE", "GIANT_WOLVERINE", "CHINCHILLA", "GIANT_CHINCHILLA", "FLOATING_GUTS", "DRUNIAN", "CREEPING_EYE", "VORACIOUS_CAVE_CRAWLER", "BLIND_CAVE_OGRE", "CAP_HOPPER", "MAGMA_CRAB", "CRUNDLE", "FLESH_BALL", "ELK_BIRD", "HELMET_SNAKE", "GREEN_DEVOURER", "RUTHERER", "CREEPY_CRAWLER", "DRALTHA", "GIANT_EARTHWORM", "BUGBAT", "MANERA", "MOLEMARIAN", "JABBERER", "POND_GRABBER", "BLIND_CAVE_BEAR", "CAVE_DRAGON", "REACHER", "GORLAK", "CAVE_FLOATER", "CAVE_BLOB", "OCTOPUS", "GIANT_OCTOPUS", "CRAB", "GIANT_CRAB", "LEOPARD_SEAL", "GIANT_LEOPARD_SEAL", "CUTTLEFISH", "GIANT_CUTTLEFISH", "ORCA", "GIANT_ORCA", "SPONGE", "GIANT_SPONGE", "HORSESHOE_CRAB", "GIANT_HORSESHOE_CRAB", "SPERM_WHALE", "GIANT_SPERM_WHALE", "ELEPHANT_SEAL", "GIANT_ELEPHANT_SEAL", "HARP_SEAL", "GIANT_HARP_SEAL", "NAUTILUS", "GIANT_NAUTILUS", "FOXSQUIRREL", "MOGHOPPER", "RAT_DEMON", "WAMBLER_FLUFFY", "LIZARD_RHINO_TWO_LEGGED", "WORM_KNUCKLE", "SPIDER_PHANTOM", "FLY_ACORN", "GNAT_BLOOD", "LIZARD", "GIANT_LIZARD", "SKINK", "GIANT_SKINK", "CHAMELEON", "GIANT_CHAMELEON", "ANOLE", "GIANT_ANOLE", "IGUANA", "GIANT_IGUANA", "RIVER OTTER", "SEA OTTER", "GIANT_OTTER", "SNAPPING TURTLE", "ALLIGATOR SNAPPING TURTLE", "GIANT_SNAPPING_TURTLE", "BEAVER", "GIANT_BEAVER", "LEECH", "GIANT_LEECH", "AXOLOTL", "GIANT_AXOLOTL", "MINK", "GIANT_MINK", "POND_TURTLE", "GIANT_POND_TURTLE", "RAT", "SQUIRREL_GRAY", "GIANT_SQUIRREL_GRAY", "SQUIRREL_RED", "GIANT_SQUIRREL_RED", "CHIPMUNK", "GIANT_CHIPMUNK", "HAMSTER", "GIANT_HAMSTER", "HEDGEHOG", "GIANT_HEDGEHOG", "SQUIRREL_FLYING", "GIANT_FLYING_SQUIRREL", "MUSSEL", "OYSTER", "FISH_SALMON", "FISH_CLOWNFISH", "FISH_HAGFISH", "FISH_LAMPREY_BROOK", "FISH_RAY_BAT", "FISH_RAY_THORNBACK", "FISH_RATFISH_SPOTTED", "FISH_HERRING", "FISH_SHAD", "FISH_ANCHOVY", "FISH_TROUT_STEELHEAD", "FISH_HAKE", "FISH_SEAHORSE", "FISH_GLASSEYE", "FISH_PUFFER_WHITE_SPOTTED", "FISH_SOLE", "FISH_FLOUNDER", "FISH_MACKEREL", "JELLYFISH_SEA_NETTLE", "SQUID", "GIGANTIC SQUID", "FISH_LUNGFISH", "FISH_LOACH_CLOWN", "FISH_BULLHEAD_BROWN", "FISH_BULLHEAD_YELLOW", "FISH_BULLHEAD_BLACK", "FISH_KNIFEFISH_BANDED", "FISH_CHAR", "FISH_TROUT_RAINBOW", "FISH_MOLLY_SAILFIN", "FISH_GUPPY", "FISH_PERCH", "KOBOLD", "TROLL", "OGRE", "UNICORN", "DRAGON", "SATYR", "COLOSSUS_BRONZE", "GIANT", "CYCLOPS", "YETI", "SASQUATCH", "WOLF_ICE", "FAIRY", "PIXIE", "BEAK_DOG", "GRIMELING", "BLENDEC_FOUL", "STRANGLER", "NIGHTWING", "HARPY", "MERPERSON", "SEA_SERPENT", "SEA_MONSTER", "BIRD_ROC", "CROCODILE_CAVE", "TOAD_GIANT_CAVE", "OLM_GIANT", "BAT_GIANT", "RAT_GIANT", "RAT_LARGE", "MOLE_DOG_NAKED", "TROGLODYTE", "MOLE_GIANT", "IMP_FIRE", "SPIDER_CAVE_GIANT", "SPIDER_CAVE", "FISH_CAVE", "LOBSTER_CAVE", "SNAKE_FIRE", "OLM", "BAT", "MAGGOT_PURRING", "BIRD_SWALLOW_CAVE", "BIRD_SWALLOW_CAVE_GIANT", "WILD_BOAR", "GIANT_WILD_BOAR", "COYOTE", "GIANT_COYOTE", "KANGAROO", "GIANT_KANGAROO", "KOALA", "GIANT_KOALA", "ADDER", "GIANT_ADDER", "ECHIDNA", "GIANT_ECHIDNA", "PORCUPINE", "GIANT_PORCUPINE", "KINGSNAKE", "GIANT_KINGSNAKE", "GRAY_LANGUR", "GIANT_GRAY_LANGUR", "BOBCAT", "GIANT_BOBCAT", "SKUNK", "GIANT_SKUNK", "GREEN_TREE_FROG", "GIANT_GREEN_TREE_FROG", "HARE", "GIANT_HARE", "RATTLESNAKE", "GIANT_RATTLESNAKE", "WEASEL", "GIANT_WEASEL", "COPPERHEAD_SNAKE", "GIANT_COPPERHEAD_SNAKE", "IBEX", "GIANT_IBEX", "WOMBAT", "GIANT_WOMBAT", "DINGO", "GIANT_DINGO", "COATI", "GIANT_COATI", "OPOSSUM", "GIANT_OPOSSUM", "MONGOOSE", "GIANT_MONGOOSE", "HYENA", "GIANT_HYENA", "ANACONDA", "GIANT_ANACONDA", "MONITOR_LIZARD", "GIANT_MONITOR_LIZARD", "KING_COBRA", "GIANT_KING_COBRA", "OCELOT", "GIANT_OCELOT", "JACKAL", "GIANT_JACKAL", "CAPUCHIN", "GIANT_CAPUCHIN", "SLOTH", "GIANT_SLOTH", "SPIDER_MONKEY", "GIANT_SPIDER_MONKEY", "PANGOLIN", "GIANT_PANGOLIN", "BLACK_MAMBA", "GIANT_BLACK_MAMBA", "BEAR_SLOTH", "GIANT_SLOTH_BEAR", "AYE-AYE", "GIANT_AYE-AYE", "BUSHMASTER", "GIANT_BUSHMASTER", "PYTHON", "GIANT_PYTHON", "TAPIR", "GIANT_TAPIR", "IMPALA", "GIANT_IMPALA", "AARDVARK", "GIANT_AARDVARK", "LION_TAMARIN", "GIANT_LION_TAMARIN", "STOAT", "GIANT_STOAT", "LYNX", "GIANT_LYNX", "CAMBRIAN_HALLUCIGENIA", "CAMBRIAN_HAIKOUICHTHYS", "CAMBRIAN_OPABINIA", "CAMBRIAN_ANOMALOCARIS", "CAMBRIAN_TRILOBITE", "CAMBRIAN_WIWAXIA", "CARBONIFEROUS_OESTOCEPHALUS", "CARBONIFEROUS_TULLIMONSTRUM", "CARBONIFEROUS_ARTHROPLEURA", "CARBONIFEROUS_MEGANEURA", "CENOZOIC_DEINOTHERIUM", "CENOZOIC_SMILODON", "CENOZOIC_MAMMOTH_PYGMY", "CENOZOIC_MEGATHERIUM", "CENOZOIC_THYLACINE", "CENOZOIC_ANDREWSARCHUS", "CENOZOIC_RHINOCEROS_WOOLLY", "CENOZOIC_MIOHIPPUS", "CENOZOIC_GLYPTODON", "CENOZOIC_MAMMOTH_WOOLLY", "CENOZOIC_PARACERATHERIUM", "CENOZOIC_DODO", "CENOZOIC_KELENKEN", "CENOZOIC_MOA", "CENOZOIC_MEGALODON", "CENOZOIC_MEGALANIA", "CENOZOIC_TITANOBOA", "CENOZOIC_PLATYBELODON", "CENOZOIC_ENTELODON", "CENOZOIC_MEGACEROPS", "CRETACEOUS_AMMONITE", "CRETACEOUS_ARCHELON", "CRETACEOUS_VELOCIRAPTOR", "CRETACEOUS_MONONYKUS", "CRETACEOUS_LINHENYKUS", "CRETACEOUS_BUITRERAPTOR", "CRETACEOUS_DEINONYCHUS", "CRETACEOUS_UTAHRAPTOR", "CRETACEOUS_MOSASAURUS", "CRETACEOUS_PARASAUROLOPHUS", "CRETACEOUS_IGUANODON", "CRETACEOUS_TRICERATOPS", "CRETACEOUS_KOSMOCERATOPS", "CRETACEOUS_MICROCERATUS", "CRETACEOUS_ANKYLOSAURUS", "CRETACEOUS_PACHYCEPHALOSAURUS", "CRETACEOUS_QUETZALCOATLUS", "CRETACEOUS_COLEPIOCEPHALE", "CRETACEOUS_TSINTAOSAURUS", "CRETACEOUS_THERIZINOSAURUS", "CRETACEOUS_SUZHOUSAURUS", "CRETACEOUS_NOTHRONYCHUS", "CRETACEOUS_CARNOTAURUS", "CRETACEOUS_SPINOSAURUS_AEGYPTIACUS", "CRETACEOUS_TYRANNOSAURUS", "CRETACEOUS_AMARGASAURUS", "CRETACEOUS_OVIRAPTOR", "CRETACEOUS_SINOPTERUS", "CRETACEOUS_SPINOSAURUS_MIRABILIS", "CRETACEOUS_HYPSILOPHODON", "CRETACEOUS_NODOSAURUS", "DEVONIAN_DUNKLEOSTEUS", "DEVONIAN_TIKTAALIK", "DEVONIAN_HIBBERTOPTERUS_SCOULERI", "DEVONIAN_HIBBERTOPTERUS_PEACHI", "DEVONIAN_DREPANOPTERUS", "DEVONIAN_MIMETASTER", "JURASSIC_ICHTHYOSAURUS", "JURASSIC_TORVOSAURUS", "JURASSIC_ARCHAEOPTERYX", "JURASSIC_PLESIOSAURUS", "JURASSIC_STEGOSAURUS", "JURASSIC_KENTROSAURUS", "JURASSIC_PTERODACTYLUS", "JURASSIC_JEHOLOPTERUS", "JURASSIC_DILOPHOSAURUS", "JURASSIC_CERATOSAURUS", "JURASSIC_EUROPASAURUS", "JURASSIC_BRACHIOSAURUS", "JURASSIC_DIPLODOCUS", "JURASSIC_BRONTOSAURUS", "JURASSIC_ALLOSAURUS", "JURASSIC_AFROVENATOR", "JURASSIC_RHAMPHORHYNCHUS", "JURASSIC_OSTENOCARIS", "ORDOVICIAN_AEGIROCASSIS", "PERMIAN_DIPLOCAULUS", "PERMIAN_ERYOPS", "PERMIAN_HELICOPRION", "PERMIAN_DIMETRODON", "PERMIAN_DIADECTES", "PERMIAN_ANTEOSAURUS", "PERMIAN_LYSTROSAURUS", "SILURIAN_JAEKELOPTERUS", "TRIASSIC_GERROTHORAX", "TRIASSIC_EORAPTOR", "TRIASSIC_SHAROVIPTERYX", "TRIASSIC_PSEPHODERMA", "TRIASSIC_PROCOMPSOGNATHUS", "TRIASSIC_DREPANOSAURUS"]}}}, {"name": "drinks", "bytes": 1777, "summary": "Food: 76 Eintraege | Allgemein: max_barrels=2, max_bins=0, max_wheelbarrows=0, use_links_only=False, allow_organic=True, allow_inorganic=True", "general": {"max_barrels": 2, "max_bins": 0, "max_wheelbarrows": 0, "use_links_only": false, "allow_organic": true, "allow_inorganic": true}, "cats": {"Food": {"drink_plant": ["PLANT:SINGLE-GRAIN_WHEAT:DRINK", "PLANT:TWO-GRAIN_WHEAT:DRINK", "PLANT:SOFT_WHEAT:DRINK", "PLANT:HARD_WHEAT:DRINK", "PLANT:SPELT:DRINK", "PLANT:BARLEY:DRINK", "PLANT:BUCKWHEAT:DRINK", "PLANT:RYE:DRINK", "PLANT:SORGHUM:DRINK", "PLANT:RICE:DRINK", "PLANT:MAIZE:DRINK", "PLANT:QUINOA:DRINK", "PLANT:KANIWA:DRINK", "PLANT:PENDANT_AMARANTH:DRINK", "PLANT:BLOOD_AMARANTH:DRINK", "PLANT:PURPLE_AMARANTH:DRINK", "PLANT:PEARL_MILLET:DRINK", "PLANT:WHITE_MILLET:DRINK", "PLANT:FINGER_MILLET:DRINK", "PLANT:FOXTAIL_MILLET:DRINK", "PLANT:FONIO:DRINK", "PLANT:TEFF:DRINK", "PLANT:ARTICHOKE:DRINK", "PLANT:BEET:DRINK", "PLANT:WILD_CARROT:DRINK", "PLANT:CASSAVA:DRINK", "PLANT:PARSNIP:DRINK", "PLANT:POTATO:DRINK", "PLANT:RADISH:DRINK", "PLANT:SWEET_POTATO:DRINK", "PLANT:TOMATO:DRINK", "PLANT:TOMATILLO:DRINK", "PLANT:TURNIP:DRINK", "PLANT:PASSION_FRUIT:DRINK", "PLANT:GRAPE:DRINK", "PLANT:CRANBERRY:DRINK", "PLANT:BILBERRY:DRINK", "PLANT:BLUEBERRY:DRINK", "PLANT:BLACKBERRY:DRINK", "PLANT:RASPBERRY:DRINK", "PLANT:PINEAPPLE:DRINK", "PLANT:BANANA:DRINK", "PLANT:CARAMBOLA:DRINK", "PLANT:DURIAN:DRINK", "PLANT:GUAVA:DRINK", "PLANT:PAPAYA:DRINK", "PLANT:RAMBUTAN:DRINK", "PLANT:CUSTARD-APPLE:DRINK", "PLANT:DATE_PALM:DRINK", "PLANT:LYCHEE:DRINK", "PLANT:POMEGRANATE:DRINK", "PLANT:APPLE:DRINK", "PLANT:APRICOT:DRINK", "PLANT:BAYBERRY:DRINK", "PLANT:CHERRY:DRINK", "PLANT:PEACH:DRINK", "PLANT:PEAR:DRINK", "PLANT:PERSIMMON:DRINK", "PLANT:PLUM:DRINK", "PLANT:SAND_PEAR:DRINK", "PLANT:MUSHROOM_HELMET_PLUMP:DRINK", "PLANT:GRASS_TAIL_PIG:DRINK", "PLANT:GRASS_WHEAT_CAVE:DRINK", "PLANT:POD_SWEET:DRINK", "PLANT:ROOT_MUCK:DRINK", "PLANT:TUBER_BLOATED:DRINK", "PLANT:BERRIES_PRICKLE:DRINK", "PLANT:BERRIES_STRAW:DRINK", "PLANT:GRASS_LONGLAND:DRINK", "PLANT:WEED_RAT:DRINK", "PLANT:BERRIES_FISHER:DRINK", "PLANT:REED_ROPE:DRINK", "PLANT:SLIVER_BARB:DRINK", "PLANT:BERRY_SUN:DRINK", "PLANT:VINE_WHIP:DRINK", "PLANT:MANGO:DRINK"], "prepared_meals": false}}}, {"name": "flux", "bytes": 115, "summary": "Stone: 5 Eintraege | Allgemein: max_barrels=0, max_bins=0, max_wheelbarrows=1, use_links_only=False, allow_organic=True, allow_inorganic=True", "general": {"max_barrels": 0, "max_bins": 0, "max_wheelbarrows": 1, "use_links_only": false, "allow_organic": true, "allow_inorganic": true}, "cats": {"Stone": {"mats": ["INORGANIC:LIMESTONE", "INORGANIC:DOLOMITE", "INORGANIC:CHALK", "INORGANIC:MARBLE", "INORGANIC:CALCITE"]}}}, {"name": "lye", "bytes": 29, "summary": "Food: 1 Eintraege | Allgemein: max_barrels=0, max_bins=0, max_wheelbarrows=0, use_links_only=False, allow_organic=True, allow_inorganic=True", "general": {"max_barrels": 0, "max_bins": 0, "max_wheelbarrows": 0, "use_links_only": false, "allow_organic": true, "allow_inorganic": true}, "cats": {"Food": {"liquid_misc": ["LYE"], "prepared_meals": false}}}, {"name": "start", "bytes": 70, "summary": "Animals: alles | Food: alles | Furniture: alles | Ammo: alles | Coins: alles | Bars/Blocks: alles | Finished Goods: alles | Leather: alles | Cloth: alles | Weapons: alles | Armor: alles | Sheets: alles | Allgemein: max_barrels=2, max_bins=3, max_wheelbarrows=1, use_links_only=False, allow_organic=True, allow_inorganic=True", "general": {"max_barrels": 2, "max_bins": 3, "max_wheelbarrows": 1, "use_links_only": false, "allow_organic": true, "allow_inorganic": true}, "cats": {"Animals": {"all": true}, "Food": {"all": true}, "Furniture": {"all": true}, "Ammo": {"all": true}, "Coins": {"all": true}, "Bars/Blocks": {"all": true}, "Finished Goods": {"all": true}, "Leather": {"all": true}, "Cloth": {"all": true}, "Weapons": {"all": true}, "Armor": {"all": true}, "Sheets": {"all": true}}}];
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function renderCat(name, cat){
+  let h = '<div class="catname">' + esc(name) + '</div>';
+  const flags = [];
+  for (const [k,v] of Object.entries(cat)){
+    if (typeof v === 'boolean' && v) flags.push(k);
+    if (typeof v === 'number') flags.push(k + '=' + v);
+  }
+  if (flags.length) h += '<div class="fieldrow">' + flags.map(f => '<span class="flag">&#10003; ' + esc(f) + '</span>').join('') + '</div>';
+  for (const [k,v] of Object.entries(cat)){
+    if (!Array.isArray(v) || !v.length) continue;
+    h += '<div class="fieldrow"><span class="fieldlbl">' + esc(k) + ' (' + v.length + ')</span>'
+       + v.map(x => '<span class="pill">' + esc(x) + '</span>').join('') + '</div>';
+  }
+  if (!flags.length && !Object.values(cat).some(v => Array.isArray(v) && v.length))
+    h += '<div class="empty">Kategorie aktiviert, aber nichts angehakt</div>';
+  return h;
+}
+
+function renderBody(e){
+  let h = '<div class="summ">' + esc(e.summary) + '</div>';
+  const gen = Object.entries(e.general || {});
+  if (gen.length){
+    h += '<div class="catname">Allgemeine Einstellungen</div><div class="fieldrow">'
+       + gen.map(([k,v]) => '<span class="flag">' + esc(k) + ' = ' + esc(v) + '</span>').join('') + '</div>';
+  }
+  const cats = Object.entries(e.cats || {});
+  if (!cats.length && !gen.length) h += '<div class="empty">leer</div>';
+  for (const [k,v] of cats) h += renderCat(k, v);
+  if (e.unbekannt) h += '<div class="catname">Unbekannte Felder</div><div class="fieldrow">' + esc(JSON.stringify(e.unbekannt)) + '</div>';
+  return h;
+}
+
+const list = document.getElementById('list');
+const cards = DATA.map((e, i) => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  const cats = Object.keys(e.cats || {});
+  const badge = cats.length ? cats.join(', ') : 'leer';
+  card.innerHTML = '<div class="chead"><span class="arrow">&#9654;</span>'
+    + '<span class="fname">' + esc(e.name) + '</span>'
+    + '<span class="badge">' + esc(badge) + '</span></div>'
+    + '<div class="cbody"></div>';
+  card.querySelector('.chead').addEventListener('click', () => {
+    if (!card.classList.contains('open') && !card.dataset.rendered){
+      card.querySelector('.cbody').innerHTML = renderBody(e);
+      card.dataset.rendered = '1';
+    }
+    card.classList.toggle('open');
+  });
+  card.dataset.hay = (e.name + ' ' + JSON.stringify(e)).toLowerCase();
+  list.appendChild(card);
+  return card;
+});
+
+const stat = document.getElementById('stat');
+function filter(){
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  let vis = 0;
+  cards.forEach(c => {
+    const show = !q || c.dataset.hay.includes(q);
+    c.style.display = show ? '' : 'none';
+    if (show) vis++;
+  });
+  stat.textContent = vis + ' von ' + DATA.length + ' Dateien';
+  let nores = document.getElementById('nores');
+  if (!vis){
+    if (!nores){
+      nores = document.createElement('div');
+      nores.id = 'nores'; nores.className = 'nores';
+      nores.textContent = 'Nichts gefunden.';
+      list.appendChild(nores);
+    }
+  } else if (nores) nores.remove();
+}
+document.getElementById('q').addEventListener('input', filter);
+document.getElementById('expandAll').addEventListener('click', () => cards.forEach(c => {
+  if (c.style.display === 'none') return;
+  if (!c.dataset.rendered){
+    const e = DATA[cards.indexOf(c)];
+    c.querySelector('.cbody').innerHTML = renderBody(e);
+    c.dataset.rendered = '1';
+  }
+  c.classList.add('open');
+}));
+document.getElementById('collapseAll').addEventListener('click', () => cards.forEach(c => c.classList.remove('open')));
+filter();
+</script>
+</body>
+</html>

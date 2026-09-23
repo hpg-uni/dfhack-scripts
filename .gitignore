@@ -23,3 +23,6 @@ luac.out
 
 # Logs
 *.log
+
+# Offline-Kopie des DF-Wikis (tools/wiki_mirror.py)
+wiki/

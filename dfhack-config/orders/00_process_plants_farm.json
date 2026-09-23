@@ -1,0 +1,100 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "GreaterThan",
+        "flags": [
+          "unrotten",
+          "processable"
+        ],
+        "item_type": "PLANT",
+        "value": 10
+      }
+    ],
+    "job": "ProcessPlants"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 1,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "GreaterThan",
+        "flags": [
+          "unrotten",
+          "processable_to_barrel"
+        ],
+        "item_type": "PLANT",
+        "value": 10
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "empty"
+        ],
+        "item_type": "BARREL",
+        "value": 5
+      }
+    ],
+    "job": "ProcessPlantsBarrel"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 2,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "GreaterThan",
+        "flags": [
+          "unrotten",
+          "processable_to_vial"
+        ],
+        "item_type": "PLANT",
+        "value": 10
+      }
+    ],
+    "job": "ProcessPlantsVial"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 3,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "GreaterThan",
+        "flags": [
+          "unrotten"
+        ],
+        "item_type": "PLANT",
+        "reaction_id": "PROCESS_PLANT_TO_BAG",
+        "reaction_product": "BAG_ITEM",
+        "value": 10
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "empty"
+        ],
+        "item_type": "BAG",
+        "value": 5
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "PROCESS_PLANT_TO_BAG"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "GreaterThan",
+        "flags": [
+          "unrotten",
+          "totemable",
+          "body_part"
+        ],
+        "value": 0
+      }
+    ],
+    "job": "MakeTotem"
+  }
+]

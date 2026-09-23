@@ -1,0 +1,238 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "unrotten"
+        ],
+        "item_type": "PLANT",
+        "reaction_id": "MAKE_SLURRY_FROM_PLANT",
+        "reaction_product": "PRESS_PAPER_MAT",
+        "value": 10
+      },
+      {
+        "condition": "AtMost",
+        "flags": [
+          "non_pressed"
+        ],
+        "item_type": "GLOB",
+        "reaction_class": "PAPER_SLURRY",
+        "reaction_id": "MAKE_SLURRY_FROM_PLANT",
+        "value": 10
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "MAKE_SLURRY_FROM_PLANT"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 1,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "non_pressed"
+        ],
+        "item_type": "GLOB",
+        "reaction_class": "PAPER_SLURRY",
+        "reaction_id": "PRESS_PLANT_PAPER",
+        "value": 5
+      },
+      {
+        "condition": "AtMost",
+        "item_type": "SHEET",
+        "value": 30
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "PRESS_PLANT_PAPER"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 2,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "unrotten"
+        ],
+        "item_type": "PLANT",
+        "reaction_class": "PAPER_PLANT",
+        "reaction_id": "MAKE_SHEET_FROM_PLANT",
+        "value": 10
+      },
+      {
+        "condition": "AtMost",
+        "item_type": "SHEET",
+        "value": 10
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "MAKE_SHEET_FROM_PLANT"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 3,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtLeast",
+        "item_type": "SHEET",
+        "value": 5
+      },
+      {
+        "condition": "AtMost",
+        "item_subtype": "ITEM_TOOL_QUIRE",
+        "item_type": "TOOL",
+        "value": 20
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "MAKE_QUIRE"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 4,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "allow_artifact",
+          "can_use_location_reserved",
+          "written_on"
+        ],
+        "item_subtype": "ITEM_TOOL_QUIRE",
+        "item_type": "TOOL",
+        "value": 1
+      },
+      {
+        "condition": "AtLeast",
+        "item_subtype": "ITEM_TOOL_BOOK_BINDING",
+        "item_type": "TOOL",
+        "value": 1
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "collected"
+        ],
+        "item_type": "THREAD",
+        "min_dimension": 15000,
+        "value": 5
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "BIND_BOOK"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 5,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtLeast",
+        "item_type": "SHEET",
+        "reaction_id": "MAKE_SCROLL",
+        "value": 5
+      },
+      {
+        "condition": "AtLeast",
+        "item_subtype": "ITEM_TOOL_SCROLL_ROLLERS",
+        "item_type": "TOOL",
+        "reaction_id": "MAKE_SCROLL",
+        "value": 2
+      },
+      {
+        "condition": "AtMost",
+        "item_subtype": "ITEM_TOOL_SCROLL",
+        "item_type": "TOOL",
+        "value": 10
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "MAKE_SCROLL"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 6,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "non_economic",
+          "hard"
+        ],
+        "item_type": "BOULDER",
+        "material": "INORGANIC",
+        "value": 10
+      },
+      {
+        "condition": "AtMost",
+        "item_subtype": "ITEM_TOOL_SCROLL_ROLLERS",
+        "item_type": "TOOL",
+        "value": 10
+      }
+    ],
+    "item_subtype": "ITEM_TOOL_SCROLL_ROLLERS",
+    "job": "MakeTool",
+    "material": "INORGANIC"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 7,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "non_economic",
+          "hard"
+        ],
+        "item_type": "BOULDER",
+        "material": "INORGANIC",
+        "value": 10
+      },
+      {
+        "condition": "AtMost",
+        "item_subtype": "ITEM_TOOL_BOOK_BINDING",
+        "item_type": "TOOL",
+        "value": 10
+      }
+    ],
+    "item_subtype": "ITEM_TOOL_BOOK_BINDING",
+    "job": "MakeTool",
+    "material": "INORGANIC"
+  }
+]

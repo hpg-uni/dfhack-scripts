@@ -1,0 +1,56 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "LessThan",
+        "item_type": "GRATE",
+        "material": "INORGANIC",
+        "value": 10
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "non_economic"
+        ],
+        "item_type": "BOULDER",
+        "material": "INORGANIC",
+        "value": 10
+      }
+    ],
+    "job": "ConstructGrate",
+    "material": "INORGANIC"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 1,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "LessThan",
+        "item_type": "TRAPPARTS",
+        "material": "INORGANIC",
+        "value": 10
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "non_economic"
+        ],
+        "item_type": "BOULDER",
+        "material": "INORGANIC",
+        "value": 10
+      }
+    ],
+    "job": "ConstructMechanisms",
+    "material": "INORGANIC"
+  }
+]

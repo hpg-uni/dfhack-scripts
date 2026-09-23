@@ -1,0 +1,64 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "LessThan",
+        "item_type": "TABLE",
+        "material": "GLASS_GREEN",
+        "value": 4
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "sand_bearing"
+        ],
+        "value": 15
+      },
+      {
+        "condition": "AtLeast",
+        "item_type": "BAR",
+        "material": "COAL",
+        "value": 100
+      }
+    ],
+    "job": "ConstructTable",
+    "material": "GLASS_GREEN"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 1,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "LessThan",
+        "item_type": "CHAIR",
+        "material": "GLASS_GREEN",
+        "value": 4
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "sand_bearing"
+        ],
+        "value": 15
+      },
+      {
+        "condition": "AtLeast",
+        "item_type": "BAR",
+        "material": "COAL",
+        "value": 100
+      }
+    ],
+    "job": "ConstructThrone",
+    "material": "GLASS_GREEN"
+  }
+]

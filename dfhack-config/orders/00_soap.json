@@ -1,0 +1,108 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "GreaterThan",
+        "item_type": "WOOD",
+        "value": 30
+      },
+      {
+        "condition": "AtMost",
+        "item_type": "BAR",
+        "material": "ASH",
+        "value": 20
+      }
+    ],
+    "job": "MakeAsh"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 1,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtLeast",
+        "item_type": "BAR",
+        "material": "ASH",
+        "value": 10
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "empty"
+        ],
+        "item_type": "BUCKET",
+        "value": 5
+      },
+      {
+        "condition": "AtMost",
+        "contains": [
+          "lye"
+        ],
+        "reaction_id": "MAKE_SOAP_FROM_TALLOW",
+        "value": 10
+      }
+    ],
+    "job": "MakeLye"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 2,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "unrotten"
+        ],
+        "item_type": "GLOB",
+        "reaction_class": "TALLOW",
+        "reaction_id": "MAKE_SOAP_FROM_TALLOW",
+        "reaction_product": "SOAP_MAT",
+        "value": 5
+      },
+      {
+        "condition": "AtMost",
+        "flags": [
+          "soap"
+        ],
+        "item_type": "BAR",
+        "value": 100
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "MAKE_SOAP_FROM_TALLOW"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 3,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtMost",
+        "flags": [
+          "soap"
+        ],
+        "item_type": "BAR",
+        "value": 100
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "MAKE_SOAP_FROM_OIL"
+  }
+]

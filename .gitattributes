@@ -1,0 +1,2 @@
+# Orders und Stockpiles 1:1 speichern, wie DFHack sie schreibt (.dfstock ist binaer)
+dfhack-config/** -text

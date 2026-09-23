@@ -1,0 +1,29 @@
+[
+  {
+    "amount_left": 4,
+    "amount_total": 4,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtMost",
+        "item_type": "HATCH_COVER",
+        "material": "INORGANIC",
+        "value": 2
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "non_economic"
+        ],
+        "item_type": "BOULDER",
+        "material": "INORGANIC",
+        "value": 4
+      }
+    ],
+    "job": "ConstructHatchCover",
+    "material": "INORGANIC"
+  }
+]

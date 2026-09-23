@@ -1,0 +1,64 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "GreaterThan",
+        "flags": [
+          "unrotten"
+        ],
+        "item_type": "PLANT",
+        "reaction_id": "BREW_DRINK_FROM_PLANT",
+        "reaction_product": "DRINK_MAT",
+        "value": 10
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "empty",
+          "food_storage"
+        ],
+        "reaction_id": "BREW_DRINK_FROM_PLANT",
+        "value": 5
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "BREW_DRINK_FROM_PLANT"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 1,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "GreaterThan",
+        "flags": [
+          "unrotten"
+        ],
+        "item_type": "PLANT_GROWTH",
+        "reaction_id": "BREW_DRINK_FROM_PLANT_GROWTH",
+        "reaction_product": "DRINK_MAT",
+        "value": 10
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "empty",
+          "food_storage"
+        ],
+        "reaction_id": "BREW_DRINK_FROM_PLANT_GROWTH",
+        "value": 5
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "BREW_DRINK_FROM_PLANT_GROWTH"
+  }
+]

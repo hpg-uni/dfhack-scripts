@@ -1,0 +1,33 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "LessThan",
+        "item_type": "WINDOW",
+        "material": "GLASS_GREEN",
+        "value": 4
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "sand_bearing"
+        ],
+        "value": 10
+      },
+      {
+        "condition": "GreaterThan",
+        "item_type": "BAR",
+        "material": "COAL",
+        "value": 100
+      }
+    ],
+    "job": "MakeWindow",
+    "material": "GLASS_GREEN"
+  }
+]

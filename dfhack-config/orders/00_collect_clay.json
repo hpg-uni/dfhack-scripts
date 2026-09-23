@@ -1,0 +1,18 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "LessThan",
+        "material": "INORGANIC:CLAY",
+        "value": 15
+      }
+    ],
+    "job": "CollectClay"
+  }
+]

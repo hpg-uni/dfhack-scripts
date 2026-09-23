@@ -26,3 +26,9 @@ luac.out
 
 # Offline-Kopie des DF-Wikis (tools/wiki_mirror.py)
 wiki/
+
+# Kiwix-Reader für die Wiki-ZIM (lokal, nicht versionieren)
+kiwix-desktop_windows_x64_2.5.1/
+
+# Python
+__pycache__/

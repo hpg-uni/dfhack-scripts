@@ -1,0 +1,74 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "GreaterThan",
+        "flags": [
+          "collected",
+          "plant"
+        ],
+        "item_type": "THREAD",
+        "min_dimension": 15000,
+        "value": 20
+      }
+    ],
+    "job": "WeaveCloth",
+    "material_category": [
+      "plant"
+    ]
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 1,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "GreaterThan",
+        "flags": [
+          "collected",
+          "silk"
+        ],
+        "item_type": "THREAD",
+        "min_dimension": 15000,
+        "value": 20
+      }
+    ],
+    "job": "WeaveCloth",
+    "material_category": [
+      "silk"
+    ]
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 2,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "GreaterThan",
+        "flags": [
+          "collected",
+          "yarn"
+        ],
+        "item_type": "THREAD",
+        "min_dimension": 15000,
+        "value": 20
+      }
+    ],
+    "job": "WeaveCloth",
+    "material_category": [
+      "yarn"
+    ]
+  }
+]

@@ -1,0 +1,152 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "bearing": "GOLD",
+        "condition": "AtLeast",
+        "item_type": "BOULDER",
+        "value": 10
+      },
+      {
+        "condition": "GreaterThan",
+        "item_type": "BAR",
+        "material": "COAL",
+        "value": 100
+      },
+      {
+        "condition": "LessThan",
+        "item_type": "BAR",
+        "material": "INORGANIC:GOLD",
+        "value": 100
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "CR_SMELT_GOLD_ORE"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 1,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "bearing": "SILVER",
+        "condition": "AtLeast",
+        "item_type": "BOULDER",
+        "value": 10
+      },
+      {
+        "condition": "GreaterThan",
+        "item_type": "BAR",
+        "material": "COAL",
+        "value": 100
+      },
+      {
+        "condition": "LessThan",
+        "item_type": "BAR",
+        "material": "INORGANIC:SILVER",
+        "value": 100
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "CR_SMELT_SILVER_ORE"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 2,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "bearing": "PLATINUM",
+        "condition": "AtLeast",
+        "item_type": "BOULDER",
+        "value": 10
+      },
+      {
+        "condition": "GreaterThan",
+        "item_type": "BAR",
+        "material": "COAL",
+        "value": 100
+      },
+      {
+        "condition": "LessThan",
+        "item_type": "BAR",
+        "material": "INORGANIC:PLATINUM",
+        "value": 100
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "CR_SMELT_PLATINUM_ORE"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 3,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "bearing": "IRON",
+        "condition": "AtLeast",
+        "item_type": "BOULDER",
+        "value": 10
+      },
+      {
+        "condition": "GreaterThan",
+        "item_type": "BAR",
+        "material": "COAL",
+        "value": 100
+      },
+      {
+        "condition": "LessThan",
+        "item_type": "BAR",
+        "material": "INORGANIC:IRON",
+        "value": 100
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "CR_SMELT_IRON_ORE"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 4,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "bearing": "COPPER",
+        "condition": "AtLeast",
+        "item_type": "BOULDER",
+        "value": 10
+      },
+      {
+        "condition": "GreaterThan",
+        "item_type": "BAR",
+        "material": "COAL",
+        "value": 100
+      },
+      {
+        "condition": "LessThan",
+        "item_type": "BAR",
+        "material": "INORGANIC:COPPER",
+        "value": 100
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "CR_SMELT_COPPER_ORE"
+  }
+]

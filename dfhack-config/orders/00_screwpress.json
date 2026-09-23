@@ -1,0 +1,103 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "non_pressed"
+        ],
+        "item_type": "GLOB",
+        "reaction_id": "PRESS_OIL",
+        "reaction_product": "PRESS_LIQUID_MAT",
+        "value": 5
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "empty",
+          "non_absorbent"
+        ],
+        "item_type": "TOOL",
+        "reaction_id": "PRESS_OIL",
+        "tool": "LIQUID_CONTAINER",
+        "value": 5
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "PRESS_OIL"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 1,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "unrotten",
+          "non_pressed"
+        ],
+        "item_type": "PLANT_GROWTH",
+        "reaction_id": "PRESS_OIL_FRUIT",
+        "reaction_product": "PRESS_LIQUID_MAT",
+        "value": 5
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "empty",
+          "non_absorbent"
+        ],
+        "item_type": "TOOL",
+        "reaction_id": "PRESS_OIL_FRUIT",
+        "tool": "LIQUID_CONTAINER",
+        "value": 5
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "PRESS_OIL_FRUIT"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 2,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "non_pressed"
+        ],
+        "item_subtype": "ITEM_TOOL_HONEYCOMB",
+        "item_type": "TOOL",
+        "reaction_id": "PRESS_HONEYCOMB",
+        "reaction_product": "HONEYCOMB_PRESS_MAT",
+        "value": 2
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "empty",
+          "non_absorbent"
+        ],
+        "item_type": "TOOL",
+        "reaction_id": "PRESS_HONEYCOMB",
+        "tool": "LIQUID_CONTAINER",
+        "value": 5
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "PRESS_HONEYCOMB"
+  }
+]

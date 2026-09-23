@@ -1,0 +1,82 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "GreaterThan",
+        "item_type": "BAR",
+        "material": "INORGANIC:IRON",
+        "value": 10
+      },
+      {
+        "condition": "GreaterThan",
+        "item_type": "BOULDER",
+        "reaction_class": "FLUX",
+        "reaction_id": "PIG_IRON_MAKING",
+        "value": 10
+      },
+      {
+        "condition": "GreaterThan",
+        "item_type": "BAR",
+        "material": "COAL",
+        "value": 10
+      },
+      {
+        "condition": "LessThan",
+        "item_type": "BAR",
+        "material": "INORGANIC:PIG_IRON",
+        "value": 15
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "PIG_IRON_MAKING"
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 1,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "GreaterThan",
+        "item_type": "BAR",
+        "material": "INORGANIC:IRON",
+        "value": 10
+      },
+      {
+        "condition": "GreaterThan",
+        "item_type": "BAR",
+        "material": "INORGANIC:PIG_IRON",
+        "value": 5
+      },
+      {
+        "condition": "GreaterThan",
+        "item_type": "BOULDER",
+        "reaction_class": "FLUX",
+        "reaction_id": "STEEL_MAKING",
+        "value": 10
+      },
+      {
+        "condition": "GreaterThan",
+        "item_type": "BAR",
+        "material": "COAL",
+        "value": 10
+      },
+      {
+        "condition": "LessThan",
+        "item_type": "BAR",
+        "material": "INORGANIC:STEEL",
+        "value": 50
+      }
+    ],
+    "job": "CustomReaction",
+    "reaction": "STEEL_MAKING"
+  }
+]

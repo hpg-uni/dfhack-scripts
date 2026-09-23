@@ -1,0 +1,80 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "OneTime",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_subtype": "ITEM_HELM_CAP",
+    "job": "MakeHelm",
+    "material_category": [
+      "leather"
+    ]
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "OneTime",
+    "id": 1,
+    "is_active": false,
+    "is_validated": false,
+    "item_subtype": "ITEM_ARMOR_COAT",
+    "job": "MakeArmor",
+    "material_category": [
+      "leather"
+    ]
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "OneTime",
+    "id": 2,
+    "is_active": false,
+    "is_validated": false,
+    "item_subtype": "ITEM_GLOVES_GLOVES",
+    "job": "MakeGloves",
+    "material_category": [
+      "leather"
+    ]
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "OneTime",
+    "id": 3,
+    "is_active": false,
+    "is_validated": false,
+    "item_subtype": "ITEM_PANTS_PANTS",
+    "job": "MakePants",
+    "material_category": [
+      "leather"
+    ]
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "OneTime",
+    "id": 4,
+    "is_active": false,
+    "is_validated": false,
+    "item_subtype": "ITEM_SHOES_SOCKS",
+    "job": "MakeShoes",
+    "material_category": [
+      "leather"
+    ]
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "OneTime",
+    "id": 5,
+    "is_active": false,
+    "is_validated": false,
+    "item_subtype": "ITEM_SHOES_SHOES",
+    "job": "MakeShoes",
+    "material_category": [
+      "leather"
+    ]
+  }
+]

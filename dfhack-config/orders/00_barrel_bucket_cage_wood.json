@@ -1,0 +1,83 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtMost",
+        "flags": [
+          "empty"
+        ],
+        "item_type": "BARREL",
+        "value": 10
+      },
+      {
+        "condition": "GreaterThan",
+        "item_type": "WOOD",
+        "value": 10
+      }
+    ],
+    "job": "MakeBarrel",
+    "material_category": [
+      "wood"
+    ]
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 1,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtMost",
+        "flags": [
+          "empty"
+        ],
+        "item_type": "BUCKET",
+        "value": 10
+      },
+      {
+        "condition": "GreaterThan",
+        "item_type": "WOOD",
+        "value": 10
+      }
+    ],
+    "job": "MakeBucket",
+    "material_category": [
+      "wood"
+    ]
+  },
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 2,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "AtMost",
+        "flags": [
+          "empty"
+        ],
+        "item_type": "CAGE",
+        "value": 10
+      },
+      {
+        "condition": "GreaterThan",
+        "item_type": "WOOD",
+        "value": 10
+      }
+    ],
+    "job": "MakeCage",
+    "material_category": [
+      "wood"
+    ]
+  }
+]

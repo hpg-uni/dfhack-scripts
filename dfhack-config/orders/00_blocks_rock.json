@@ -1,0 +1,29 @@
+[
+  {
+    "amount_left": 10,
+    "amount_total": 10,
+    "frequency": "Daily",
+    "id": 0,
+    "is_active": false,
+    "is_validated": false,
+    "item_conditions": [
+      {
+        "condition": "LessThan",
+        "item_type": "BLOCKS",
+        "material": "INORGANIC",
+        "value": 100
+      },
+      {
+        "condition": "AtLeast",
+        "flags": [
+          "non_economic"
+        ],
+        "item_type": "BOULDER",
+        "material": "INORGANIC",
+        "value": 10
+      }
+    ],
+    "job": "ConstructBlocks",
+    "material": "INORGANIC"
+  }
+]

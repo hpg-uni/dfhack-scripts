@@ -43,6 +43,7 @@ reads them from its own `dfhack-config` folder, so they are synced with a script
 ```
 python tools/sync_dfhack_config.py pull [DF-PATH]   # game -> repo, after exporting in game
 python tools/sync_dfhack_config.py push [DF-PATH]   # repo -> game, e.g. on another machine
+python tools/sync_dfhack_config.py status [DF-PATH] # only list differences
 ```
 
 `DF-PATH` defaults to the Steam install. The script only copies new or changed files,
